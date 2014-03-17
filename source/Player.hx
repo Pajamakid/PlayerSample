@@ -27,25 +27,54 @@ class Player extends FlxSprite
 		maxVelocity.set(runSpeed, runSpeed);
 		
 		//Movement Controls; loads sprite and sets velocity to runSpeed.
+		//Sprite keeps inital orientation and stops if opposite direction keys are held down.
 		if (FlxG.keys.anyPressed(["W"]))
 		{
-			this.loadGraphic("assets/images/wizard_up.png");
-			this.velocity.y = -runSpeed;
+			if (FlxG.keys.anyPressed(["S"]))
+			{
+				this.velocity.y = 0;
+			}
+			else
+			{
+				this.velocity.y = -runSpeed;
+				this.loadGraphic("assets/images/wizard_up.png");
+			}
 		}
 		if (FlxG.keys.anyPressed(["S"]))
 		{
-			this.loadGraphic("assets/images/wizard_down.png");
-			this.velocity.y = runSpeed;
+			if (FlxG.keys.anyPressed(["W"]))
+			{
+				this.velocity.y = 0;
+			}
+			else
+			{
+				this.loadGraphic("assets/images/wizard_down.png");
+				this.velocity.y = runSpeed;
+			}
 		}
 		if (FlxG.keys.anyPressed(["A"]))
 		{
-			this.loadGraphic("assets/images/wizard_left.png");
-			this.velocity.x = -runSpeed;
+			if (FlxG.keys.anyPressed(["D"]))
+			{
+				this.velocity.x = 0;
+			}
+			else
+			{
+				this.loadGraphic("assets/images/wizard_left.png");
+				this.velocity.x = -runSpeed;
+			}
 		}
 		if (FlxG.keys.anyPressed(["D"]))
 		{
+			if (FlxG.keys.anyPressed(["A"]))
+			{
+				this.velocity.x = 0;
+			}
+			else 
+			{
 			this.loadGraphic("assets/images/wizard_right.png");
-			this.velocity.x = runSpeed;
+			this.velocity.x = runSpeed;	
+			}
 		}
 		
 		//Resets velocity when movement key is released
