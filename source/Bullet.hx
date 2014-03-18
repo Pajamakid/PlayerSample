@@ -8,12 +8,15 @@ import flixel.FlxSprite;
  * @author Sean
  */
 class Bullet extends FlxSprite
-{
-
-	public function new(X:Int,Y:Int)
+{	
+	public function new()
 	{
-		super(X, Y);
+		super();
 		this.loadGraphic("assets/images/bullet.png");
 	}
 	
+	override public function update():Void
+	{
+		
+	}
 }

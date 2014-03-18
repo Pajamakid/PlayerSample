@@ -7,6 +7,7 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.util.FlxTimer;
+import flixel.group.FlxGroup;
 
 /**
  * A FlxState which can be used for the game's menu.
@@ -14,13 +15,14 @@ import flixel.util.FlxTimer;
 class MenuState extends FlxState
 {
 	var bulletTimer:Int = 0;
+	var player:Player;
+	
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
 	override public function create():Void
 	{
-		var player = new Player();
-		add(player);
+		player = new Player(this);
 		super.create();
 	}
 	
@@ -43,8 +45,7 @@ class MenuState extends FlxState
 		{
 			if (bulletTimer >= 10)
 			{
-				var bullet = new Bullet(Math.floor(FlxG.width * Math.random()), Math.round(FlxG.height * Math.random()));
-				add(bullet);
+				player.fire();
 				bulletTimer = 0;
 			}
 		}

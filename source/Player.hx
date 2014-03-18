@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
 
 /**
  * ...
@@ -9,16 +10,20 @@ import flixel.FlxSprite;
  */
 class Player extends FlxSprite
 {	
-	
 	private var runSpeed:Int = 100;
+	private var bulletTimer:Int = 0;
+	private var state:MenuState;
 	
-	public function new()
+	public function new(state:MenuState)
 	{	
 		//Sets initial sprite image and position
 		var centerX:Int = Math.floor((FlxG.width / 2)-16);
 		var centerY:Int = Math.floor((FlxG.height / 2)-32);
 		super(centerX, centerY);
 		this.loadGraphic("assets/images/wizard_right.png");
+		
+		this.state = state;
+		this.state.add(this);
 	}	
 	
 	override public function update():Void
@@ -87,5 +92,14 @@ class Player extends FlxSprite
 			this.velocity.x = 0;
 		}		
 		super.update();
+	}
+	
+	public function fire() {
+		
+		var bullet:Bullet = new Bullet();
+		bullet.x = this.x;
+		bullet.y = this.y;
+		
+		this.state.add(bullet);
 	}
 }
