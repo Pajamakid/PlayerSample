@@ -14,7 +14,7 @@ import flixel.group.FlxGroup;
  */
 class MenuState extends FlxState
 {
-	var bulletTimer:Int = 0;
+	
 	var player:Player;
 	
 	/**
@@ -40,15 +40,6 @@ class MenuState extends FlxState
 	 */
 	override public function update():Void
 	{
-		bulletTimer = bulletTimer + 1;
-		if (FlxG.mouse.pressed)
-		{
-			if (bulletTimer >= 10)
-			{
-				player.fire();
-				bulletTimer = 0;
-			}
-		}
 		super.update();
 	}	
 }

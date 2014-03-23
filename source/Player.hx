@@ -12,11 +12,11 @@ class Player extends FlxSprite
 {	
 	private var runSpeed:Int = 100;
 	private var bulletTimer:Int = 0;
-	private var state:MenuState;
+	private var state:FlxState;
 	
-	public function new(state:MenuState)
+	public function new(state:FlxState)
 	{	
-		//Sets initial sprite image and position
+		//Sets initial sprite image and position to the center of the screen.
 		var centerX:Int = Math.floor((FlxG.width / 2)-16);
 		var centerY:Int = Math.floor((FlxG.height / 2)-32);
 		super(centerX, centerY);
@@ -29,7 +29,7 @@ class Player extends FlxSprite
 	override public function update():Void
 	{
 		
-		maxVelocity.set(runSpeed, runSpeed);
+		this.maxVelocity.set(runSpeed, runSpeed);
 		
 		//Movement Controls; loads sprite and sets velocity to runSpeed.
 		//Sprite keeps inital orientation and stops if opposite direction keys are held down.
@@ -91,15 +91,24 @@ class Player extends FlxSprite
 		{
 			this.velocity.x = 0;
 		}		
+		
+		//Bullet timer by frames
+		bulletTimer = bulletTimer + 1;
+		if (FlxG.mouse.pressed)
+		{
+			if (bulletTimer >= 10)
+			{
+				this.fire();
+				bulletTimer = 0;
+			}
+		}
 		super.update();
 	}
 	
-	public function fire() {
-		
-		var bullet:Bullet = new Bullet();
-		bullet.x = this.x;
-		bullet.y = this.y;
-		
+	//Adds Bullet to referenced FlxState
+	public function fire() 
+	{	
+		var bullet:Bullet = new Bullet(Math.floor(this.x), Math.floor(this.y),FlxG.mouse.screenX,FlxG.mouse.screenY);
 		this.state.add(bullet);
 	}
 }
